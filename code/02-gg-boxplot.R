@@ -3,45 +3,45 @@
 #### load libraries ####
 library(ggplot2)
 library(data.table)
+library(palmerpenguins)
 
-
-#### load iris example data (https://www.statology.org/iris-dataset-r/) ####
-data(iris) 
+#### load penguins example data (https://allisonhorst.github.io/palmerpenguins/) ####
+data(penguins) 
 
 ## convert to data.table 
-setDT(iris) 
+setDT(penguins) 
 
 ## assign three colours 
 col = c("#1b9e77", "#d95f02", "#7570b3") 
 
 ## assign theme
-theme_iris <- theme(legend.position = 'none',
+theme_penguin <- theme(legend.position = 'none',
                     panel.grid.minor = element_blank(),
                     panel.background = element_blank(), 
                     panel.border = element_rect(colour = "black", fill=NA, size = 1))
 
 
 #### basic boxplot ####
-ggplot(iris) + 
-  geom_boxplot(aes(Species, 
-                   Sepal.Length, 
-                 color = Species)) +
-  ylab("Sepal length (cm)") +
+ggplot(penguins) + 
+  geom_boxplot(aes(species, 
+                   bill_length_mm, 
+                 color = species)) +
+  ylab("Bill length (mm)") +
   xlab("Species") +
   scale_color_manual(values = col) +
-  theme_iris
+  theme_penguin
 
 #### update plot 1 ####
 ## add data points in background
 
 ## plot
-ggplot(iris, aes(Species, 
-                 Sepal.Length, 
-                 color = Species)) + 
+ggplot(penguins, aes(species, 
+                     bill_length_mm, 
+                 color = species)) + 
   geom_boxplot(outlier.color = NA) + ## outlier.color = NA removes the outlier points that are automatically assigned with geom_boxplot
   geom_jitter(alpha = 0.5) +
-  ylab("Sepal length (cm)") +
+  ylab("Bill length (mm)") +
   xlab("Species") +
   scale_color_manual(values = col) +
-  theme_iris
+  theme_penguin
 
