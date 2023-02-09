@@ -1,5 +1,4 @@
 # ggplot workshop #
 
-# Quinn Webber #
 
-`ggplot` workshop developed for University of Guelph R User group, February 2023. 
+`ggplot` workshop developed by Quinn Webber for University of Guelph R User group, February 2023. 
