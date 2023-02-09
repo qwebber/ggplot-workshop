@@ -6,105 +6,106 @@ library(ggplot2)
 library(data.table)
 library(gridExtra)
 library(ggridges)
+library(palmerpenguins)
 
-## load iris data
-data(iris)
+## load penguin data
+data(penguins)
 
 ## convert to data.table 
-setDT(iris) 
+setDT(penguins)
 
 ## assign three colours 
 col = c("#1b9e77", "#d95f02", "#7570b3") 
 
 #### assign theme ####
-theme_iris <- theme(legend.position = 'none',
+theme_penguin <- theme(legend.position = 'none',
                     panel.grid.minor = element_blank(),
                     panel.background = element_blank(), 
                     panel.border = element_rect(colour = "black", fill=NA, size = 1))
 
 
 #### basic density distribution ####
-ggplot(iris) +
-  geom_density(aes(Sepal.Length, 
-                   fill = Species), 
+ggplot(penguins) +
+  geom_density(aes(bill_length_mm, 
+                   fill = species), 
                alpha = 0.5) +
-  theme_iris
+  theme_penguin
 
 #### update plot 1 ####
 ## add vertical lines for the mean of each distribution
 
-mean_iris <- iris[, mean(Sepal.Length), by = "Species"]
+mean_penguin <- setDT(penguins)[, mean(bill_length_mm, na.rm = T), by = "species"]
 
 ## plot
-ggplot(iris) +
-  geom_density(aes(Sepal.Length, 
-                   fill = Species), 
+ggplot(penguins) +
+  geom_density(aes(bill_length_mm, 
+                   fill = species), 
                alpha = 0.5) +
-  geom_vline(data = mean_iris, 
-             aes(xintercept = V1), 
+  geom_vline(data = mean_penguin, 
+             aes(xintercept = V1, col = species), 
              lty = 2) +
-  theme_iris
+  theme_penguin
 
 #### update plot 2 ####
 ## separate plots (using facet)
 
 ## plot
-ggplot(iris) +
-  geom_density(aes(Sepal.Length, 
-                   fill = Species), 
+ggplot(penguins) +
+  geom_density(aes(bill_length_mm, 
+                   fill = species), 
                alpha = 0.5) +
-  geom_vline(data = mean_iris, 
+  geom_vline(data = mean_penguin, 
              aes(xintercept = V1), 
              lty = 2) +
-  theme_iris +
+  theme_penguin +
   theme(strip.background = element_rect(color = "black", 
                                         fill = "white", 
                                         size = 1),
         strip.text = element_text(size = 14, color = "black")) +
-  facet_wrap(~Species)
+  facet_wrap(~species)
 
 #### update plot 3 ####
 ## separate plots (without using facet)
 
 ## plot
-gg_virginica <- ggplot(iris[Species == "virginica"]) +
-  geom_density(aes(Sepal.Length, 
-                   fill = Species), 
+gg_adelie <- ggplot(penguins[species == "Adelie"]) +
+  geom_density(aes(bill_length_mm, 
+                   fill = species), 
                alpha = 0.5, 
                fill = "#1b9e77") +
-  geom_vline(data = mean_iris[Species == "virginica"], 
+  geom_vline(data = mean_penguin[species == "Adelie"], 
              aes(xintercept = V1), 
              lty = 2) +
   ggtitle("A)") +
-  theme_iris
+  theme_penguin
   
-gg_setosa <- ggplot(iris[Species == "setosa"]) +
-  geom_density(aes(Sepal.Length, 
-                   fill = Species), 
+gg_chinstrap <- ggplot(penguins[species == "Chinstrap"]) +
+  geom_density(aes(bill_length_mm, 
+                   fill = species), 
                alpha = 0.5,
                fill = "#d95f02") +
-  geom_vline(data = mean_iris[Species == "setosa"], 
+  geom_vline(data = mean_penguin[species == "Chinstrap"], 
              aes(xintercept = V1), 
              lty = 2) +
   ggtitle("B)") +
-  theme_iris
+  theme_penguin
 
-gg_versicolor <- ggplot(iris[Species == "versicolor"]) +
-  geom_density(aes(Sepal.Length, 
-                   fill = Species), 
+gg_gentoo <- ggplot(penguins[species == "Gentoo"]) +
+  geom_density(aes(bill_length_mm, 
+                   fill = species), 
                alpha = 0.5,
                fill = "#7570b3") +
-  geom_vline(data = mean_iris[Species == "versicolor"], 
+  geom_vline(data = mean_penguin[species == "Gentoo"], 
              aes(xintercept = V1), 
              lty = 2) +
   ggtitle("C)") +
-  theme_iris
+  theme_penguin
 
 
 png("figures/fig2.png", width = 3000, height = 2000, units = "px", res = 500)
-gridExtra::grid.arrange(gg_virginica, 
-             gg_setosa, 
-             gg_versicolor, 
+gridExtra::grid.arrange(gg_adelie, 
+             gg_chinstrap, 
+             gg_gentoo, 
              nrow = 1,
              ncol = 3)
 dev.off()
