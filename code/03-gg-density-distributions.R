@@ -8,7 +8,7 @@ library(gridExtra)
 library(ggridges)
 library(palmerpenguins)
 
-## load penguin data
+## load penguin data (https://allisonhorst.github.io/palmerpenguins/)
 data(penguins)
 
 ## convert to data.table 
