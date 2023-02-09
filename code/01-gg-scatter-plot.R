@@ -4,27 +4,30 @@ library(ggplot2)
 library(data.table)
 
 
-#### load iris example data (https://www.statology.org/iris-dataset-r/) ####
-data(iris) 
+#### load penguins example data ####
+install.packages("palmerpenguins")
+library(palmerpenguins)
+
+data(penguins)
 
 ## convert to data.table 
-setDT(iris) 
+setDT(penguins) 
 
 #### basic scatter plot ####
-ggplot(data = iris) + 
-  geom_point(aes(Sepal.Length, 
-                 Sepal.Width)) 
+ggplot(data = penguins) + 
+  geom_point(aes(bill_length_mm, 
+                 bill_depth_mm)) 
 
 #### update plot 1 ####
 #### color by species and have appropriate axis labels
 
 ## plot
-ggplot(iris) + 
-  geom_point(aes(Sepal.Length, 
-                 Sepal.Width, 
-                 color = Species)) +
-  ylab("Sepal width (cm)") +
-  xlab("Sepal length (cm)")
+ggplot(penguins) + 
+  geom_point(aes(bill_length_mm, 
+                 bill_depth_mm, 
+                 color = species)) 
+  ylab("Bill depth (mm)") +
+  xlab("Bill length (mm)")
 
 #### update plot 2 ####
 #### customize color (https://colorbrewer2.org/)
@@ -33,12 +36,12 @@ ggplot(iris) +
 col = c("#1b9e77", "#d95f02", "#7570b3") 
 
 ## plot
-ggplot(iris) + 
-  geom_point(aes(Sepal.Length, 
-                 Sepal.Width, 
-                 color = Species)) +
-  ylab("Sepal width (cm)") +
-  xlab("Sepal length (cm)") +
+ggplot(penguins) + 
+  geom_point(aes(bill_length_mm, 
+                 bill_depth_mm, 
+                 color = species)) +
+  ylab("Bill depth (mm)") +
+  xlab("Bill length (mm)") +
   scale_color_manual(values = col)
   #scale_color_viridis_d()
 
@@ -53,14 +56,14 @@ theme_iris <- theme(legend.position = c(0.8, 0.8),
                     panel.border = element_rect(colour = "black", fill=NA, size = 1))
 
 ## plot
-ggplot(iris) + 
-  geom_point(aes(Sepal.Length, 
-                 Sepal.Width, 
-                 color = Species)) +
-  xlim(3,9) +
-  ylim(2,6) +
-  ylab("Sepal width (cm)") +
-  xlab("Sepal length (cm)") +
+ggplot(penguins) + 
+  geom_point(aes(bill_length_mm, 
+                 bill_depth_mm, 
+                 color = species)) +
+  xlim(30,60) +
+  ylim(10,25) +
+  ylab("Bill depth (mm)") +
+  xlab("Bill length (mm)") +
   scale_color_manual(values = col) +
   theme_iris
   #theme_bw()
@@ -79,27 +82,27 @@ theme_facet <- theme(legend.position = 'none',
                      panel.border = element_rect(colour = "black", fill=NA, size = 1))
 
 ## plot
-ggplot(iris) + 
-  geom_point(aes(Sepal.Length, 
-                 Sepal.Width, 
-                 color = Species)) +
-  ylab("Sepal width (cm)") +
-  xlab("Sepal length (cm)") +
+ggplot(penguins) + 
+  geom_point(aes(bill_length_mm, 
+                 bill_depth_mm, 
+                 color = species)) +
+  ylab("Bill depth (mm)") +
+  xlab("Bill length (mm)") +
   scale_color_manual(values = col) +
   theme_facet +
-  facet_wrap(~Species)
+  facet_wrap(~species)
 
 #### update plot 5 ####
 #### export as "publication ready"
 
 png("figures/fig1.png", width = 3000, height = 2000, units = "px", res = 500)
-ggplot(iris) + 
-  geom_point(aes(Sepal.Length, 
-                 Sepal.Width, 
-                 color = Species)) +
-  ylab("Sepal width (cm)") +
-  xlab("Sepal length (cm)") +
+ggplot(penguins) + 
+  geom_point(aes(bill_length_mm, 
+                 bill_depth_mm, 
+                 color = species)) +
+  ylab("Bill depth (mm)") +
+  xlab("Bill length (mm)") +
   scale_color_manual(values = col) +
   theme_facet +
-  facet_wrap(~Species)
+  facet_wrap(~species)
 dev.off()
