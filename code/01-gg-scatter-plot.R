@@ -4,7 +4,7 @@ library(ggplot2)
 library(data.table)
 
 
-#### load penguins example data ####
+#### load penguins example data (https://allisonhorst.github.io/palmerpenguins/) ####
 install.packages("palmerpenguins")
 library(palmerpenguins)
 
