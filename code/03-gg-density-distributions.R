@@ -4,7 +4,6 @@
 #### load libraries ####
 library(ggplot2)
 library(data.table)
-library(gridExtra)
 library(ggridges)
 library(palmerpenguins)
 
@@ -47,6 +46,8 @@ ggplot(penguins) +
   geom_vline(data = mean_penguin, 
              aes(xintercept = V1, col = species), 
              lty = 2) +
+  geom_hline(aes(yintercept = 0.05),
+             lty = 5) +
   theme_penguin
 
 #### update plot 2 ####
@@ -84,3 +85,4 @@ ggplot(lincoln_weather,
   xlab("Mean temperature [F]") +
   labs(title = 'Temperatures in Lincoln NE') +
   theme_bw()
+

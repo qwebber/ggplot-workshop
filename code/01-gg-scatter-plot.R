@@ -42,8 +42,8 @@ ggplot(penguins) +
                  color = species)) +
   ylab("Bill depth (mm)") +
   xlab("Bill length (mm)") +
-  scale_color_manual(values = col)
-  #scale_color_viridis_d()
+  #scale_color_manual(values = col)
+  scale_color_viridis_d()
 
 #### update plot 3 ####
 #### customize background using a theme
@@ -66,7 +66,7 @@ ggplot(penguins) +
   xlab("Bill length (mm)") +
   scale_color_manual(values = col) +
   theme_penguin
-  #theme_bw()
+  #theme_bw() 
 
 #### update plot 4 ####
 #### facet_wrap
@@ -76,10 +76,11 @@ theme_facet <- theme(legend.position = 'none',
                      strip.background = element_rect(color = "black", 
                                                      fill = "white", 
                                                      size = 1),
-                     strip.text = element_text(size = 14, color = "black"),
+                     strip.text = element_text(size = 14, 
+                                               color = "black"),
                      panel.grid.minor = element_blank(),
                      panel.background = element_blank(), 
-                     panel.border = element_rect(colour = "black", fill=NA, size = 1))
+                     panel.border = element_rect(color = "black", fill=NA, size = 1))
 
 ## plot
 ggplot(penguins) + 
@@ -110,6 +111,3 @@ ggplot(penguins) +
   theme_facet +
   facet_wrap(~species)
 dev.off()
-
-
-#### update plot 6 ####

@@ -59,23 +59,35 @@ theme_penguin <- theme(legend.position = c(0.2,0.8),
                        panel.background = element_blank(), 
                        panel.border = element_rect(colour = "black", fill=NA, size = 1))
 
+
+sum_data <- penguins[, .N, by = c("species", "sex")]
+
+
 ## plot
-ggplot(penguins, aes(species, 
-                     bill_length_mm)) + 
-  geom_jitter(aes(fill = sex,
+ggplot() + 
+  geom_jitter(data = penguins, 
+              aes(species, 
+                  bill_length_mm, 
+                  fill = sex,
                   color = sex), 
               alpha = 0.5, 
               position = position_jitterdodge()) +
-  geom_boxplot(aes(fill = sex), 
+  geom_boxplot(data = penguins, aes(species, 
+                                    bill_length_mm,
+                                    fill = sex), 
                outlier.color = NA, 
                alpha = 0.75,
                notch = T) + 
+  geom_text(data = sum_data, aes(x = species, 
+                                 y = 59, 
+                                 label = N, 
+                                 fill = sex),
+            position = position_jitterdodge()) +
   ylab("Bill length (mm)") +
   xlab("Species") +
   scale_fill_manual(values = col) +
   scale_color_manual(values = col) +
   theme_penguin
-
 
 #### update plot 3 ####
 ## compare multiple phenotypes by sex and species
