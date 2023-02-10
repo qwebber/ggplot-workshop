@@ -102,7 +102,7 @@ gg_gentoo <- ggplot(penguins[species == "Gentoo"]) +
   theme_penguin
 
 
-png("figures/fig2.png", width = 3000, height = 2000, units = "px", res = 500)
+png("figures/fig3.png", width = 3000, height = 2000, units = "px", res = 500)
 gridExtra::grid.arrange(gg_adelie, 
              gg_chinstrap, 
              gg_gentoo, 
