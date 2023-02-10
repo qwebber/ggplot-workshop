@@ -51,9 +51,11 @@ ggplot(penguins) +
 ## assign theme
 theme_penguin <- theme(legend.position = c(0.8, 0.8),
                     legend.key = element_blank(),
+                    axis.text = element_text(color = "black"), 
                     panel.grid.minor = element_blank(),
                     panel.background = element_blank(), 
-                    panel.border = element_rect(colour = "black", fill=NA, size = 1))
+                    panel.border = element_rect(colour = "black",
+                                                fill=NA, size = 1))
 
 ## plot
 ggplot(penguins) + 
