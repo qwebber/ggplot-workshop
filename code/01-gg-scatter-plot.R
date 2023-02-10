@@ -95,7 +95,11 @@ ggplot(penguins) +
 #### update plot 5 ####
 #### export as "publication ready"
 
-png("figures/fig1.png", width = 3000, height = 2000, units = "px", res = 500)
+png("figures/fig1.png", 
+    width = 3000, 
+    height = 2000, 
+    units = "px", 
+    res = 500)
 ggplot(penguins) + 
   geom_point(aes(bill_length_mm, 
                  bill_depth_mm, 
