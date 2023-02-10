@@ -5,7 +5,7 @@ library(data.table)
 
 
 #### load penguins example data (https://allisonhorst.github.io/palmerpenguins/) ####
-install.packages("palmerpenguins")
+#install.packages("palmerpenguins")
 library(palmerpenguins)
 
 data(penguins)
@@ -25,7 +25,7 @@ ggplot(data = penguins) +
 ggplot(penguins) + 
   geom_point(aes(bill_length_mm, 
                  bill_depth_mm, 
-                 color = species)) 
+                 color = species)) +
   ylab("Bill depth (mm)") +
   xlab("Bill length (mm)")
 
@@ -49,7 +49,7 @@ ggplot(penguins) +
 #### customize background using a theme
 
 ## assign theme
-theme_iris <- theme(legend.position = c(0.8, 0.8),
+theme_penguin <- theme(legend.position = c(0.8, 0.8),
                     legend.key = element_blank(),
                     panel.grid.minor = element_blank(),
                     panel.background = element_blank(), 
@@ -65,7 +65,7 @@ ggplot(penguins) +
   ylab("Bill depth (mm)") +
   xlab("Bill length (mm)") +
   scale_color_manual(values = col) +
-  theme_iris
+  theme_penguin
   #theme_bw()
 
 #### update plot 4 ####
@@ -106,3 +106,6 @@ ggplot(penguins) +
   theme_facet +
   facet_wrap(~species)
 dev.off()
+
+
+#### update plot 6 ####
