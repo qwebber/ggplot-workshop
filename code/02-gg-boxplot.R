@@ -45,3 +45,100 @@ ggplot(penguins, aes(species,
   scale_color_manual(values = col) +
   theme_penguin
 
+#### update plot 2 ####
+## split by sex
+
+## remove NAs from DT
+penguins <- penguins[!is.na(penguins$sex)]
+
+## update theme_penguin
+theme_penguin <- theme(legend.position = c(0.2,0.8),
+                       legend.key = element_blank(),
+                       axis.text = element_text(color = "black"),
+                       panel.grid.minor = element_blank(),
+                       panel.background = element_blank(), 
+                       panel.border = element_rect(colour = "black", fill=NA, size = 1))
+
+## plot
+ggplot(penguins, aes(species, 
+                     bill_length_mm)) + 
+  geom_jitter(aes(fill = sex,
+                  color = sex), 
+              alpha = 0.5, 
+              position = position_jitterdodge()) +
+  geom_boxplot(aes(fill = sex), 
+               outlier.color = NA, 
+               alpha = 0.75,
+               notch = T) + 
+  ylab("Bill length (mm)") +
+  xlab("Species") +
+  scale_fill_manual(values = col) +
+  scale_color_manual(values = col) +
+  theme_penguin
+
+
+#### update plot 3 ####
+## compare multiple phenotypes by sex and species
+
+gg_bill_len <- ggplot(penguins, aes(species, 
+                                    bill_length_mm)) + 
+  geom_jitter(aes(fill = sex,
+                  color = sex), 
+              alpha = 0.5, 
+              position = position_jitterdodge()) +
+  geom_boxplot(aes(fill = sex), 
+               outlier.color = NA, 
+               alpha = 0.75,
+               notch = T) + 
+  ylab("Bill length (mm)") +
+  xlab("Species") +
+  ggtitle("A)") +
+  scale_fill_manual(values = col) +
+  scale_color_manual(values = col) +
+  theme_penguin
+
+gg_flipper_len <- ggplot(penguins, aes(species, 
+                                       flipper_length_mm)) + 
+  geom_jitter(aes(fill = sex,
+                  color = sex), 
+              alpha = 0.5, 
+              position = position_jitterdodge()) +
+  geom_boxplot(aes(fill = sex), 
+               outlier.color = NA, 
+               alpha = 0.75,
+               notch = T) + 
+  ylab("Flipper length (mm)") +
+  xlab("Species") +
+  ggtitle("B)") +
+  scale_fill_manual(values = col) +
+  scale_color_manual(values = col) +
+  theme_penguin
+
+gg_body_mass <- ggplot(penguins, aes(species, 
+                                     body_mass_g)) + 
+  geom_jitter(aes(fill = sex,
+                  color = sex), 
+              alpha = 0.5, 
+              position = position_jitterdodge()) +
+  geom_boxplot(aes(fill = sex), 
+               outlier.color = NA, 
+               alpha = 0.75,
+               notch = T) + 
+  ylab("Body mass (g)") +
+  xlab("Species") +
+  ggtitle("C)") +
+  scale_fill_manual(values = col) +
+  scale_color_manual(values = col) +
+  theme_penguin
+
+png("figures/fig2.png", 
+    width = 6000, 
+    height = 3000, 
+    units = "px", 
+    res = 500)
+gridExtra::grid.arrange(gg_bill_len, 
+                        gg_flipper_len, 
+                        gg_body_mass,
+                        nrow = 1, 
+                        ncol = 3)
+dev.off()
